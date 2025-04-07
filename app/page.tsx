@@ -1,3 +1,5 @@
+'use client';
+
 import Homepage from "@/app/components/home/Home";
 
 
