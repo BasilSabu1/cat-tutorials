@@ -85,7 +85,7 @@ const CATTutorials: React.FC = () => {
     <div className="bg-[#151718] text-white min-h-screen p-4 md:p-8">
       <div className="container mx-auto">
         <h1 className="text-3xl font-bold text-center mb-6">Why CAT Tutorials</h1>
-        <p className="text-center mb-8">We're all about helping learners everywhere with top-notch, accessible, and fun education!</p>
+        <p className="text-center mb-8">We&apos;re all about helping learners everywhere with top-notch, accessible, and fun education!</p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
   {cards.map((card, index) => (

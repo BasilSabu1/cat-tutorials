@@ -231,7 +231,7 @@ const ComparisonComponent: React.FC = () => {
       {/* Topper's Feedback */}
       <div className="w-full bg-slate-900 p-8 rounded-lg">
         <h1 className="text-3xl font-bold text-center mb-6 text-white">
-          CAT 2024 <span className="text-orange-500">Topper's</span> Feedback
+          CAT 2024 <span className="text-orange-500">Topper&apos;s</span> Feedback
         </h1>
 
         <div className="flex justify-center mb-8">

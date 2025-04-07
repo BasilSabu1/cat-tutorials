@@ -213,7 +213,7 @@ const BannerPage: React.FC = () => {
       <div className="w-full bg-black py-4 sm:py-6 px-4 text-center">
         <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Why CAT Tutorials</h2>
         <p className="text-white text-sm sm:text-base mx-auto max-w-2xl">
-          We're all about helping learners everywhere with top-notch, accessible, and fun education!
+          We&apos;re all about helping learners everywhere with top-notch, accessible, and fun education!
         </p>
       </div>
       
