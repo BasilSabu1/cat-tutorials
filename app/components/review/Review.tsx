@@ -13,7 +13,7 @@ interface VideoInterviewProps {
   name: string;
   title: string;
   duration: string;
-  imageSrc: string;
+  youtubeId: string;
 }
 
 const TestimonialCard: React.FC<TestimonialCardProps> = ({
@@ -82,30 +82,21 @@ const VideoInterviewCard: React.FC<VideoInterviewProps> = ({
   name,
   title,
   duration,
-  imageSrc,
+  youtubeId, // Changed from imageSrc to youtubeId
 }) => {
   return (
     <div className="bg-black rounded-lg overflow-hidden mb-4">
-      {/* Video Thumbnail */}
-      <div className="relative">
-        <Image
-          src={imageSrc || "/api/placeholder/320/180"}
-          alt={title}
-          width={320}
-          height={180}
-          className="w-full object-cover"
+      {/* YouTube Video Embed */}
+      <div className="relative pt-[56.25%]">
+        {" "}
+        {/* 16:9 aspect ratio */}
+        <iframe
+          className="absolute top-0 left-0 w-full h-full"
+          src={`https://www.youtube.com/embed/${youtubeId}`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
         />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="bg-orange-500 rounded-full p-2 opacity-90">
-            <svg
-              className="w-8 h-8 text-white"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-        </div>
       </div>
 
       {/* Video Info */}
@@ -156,37 +147,37 @@ const ReviewsPage: React.FC = () => {
       name: "Raj Shankar",
       title: "HOW I MADE IT? IIM CALCUTTA",
       duration: "17 Min.",
-      imageSrc: "/api/placeholder/320/180",
+      youtubeId: "JtOfpzHsds4", // Example YouTube ID
     },
     {
       name: "Raj Shankar",
       title: "HOW I MADE IT? IIM CALCUTTA",
       duration: "17 Min.",
-      imageSrc: "/api/placeholder/320/180",
+      youtubeId: "JtOfpzHsds4",
     },
     {
       name: "Raj Shankar",
       title: "HOW I MADE IT? IIM CALCUTTA",
       duration: "17 Min.",
-      imageSrc: "/api/placeholder/320/180",
+      youtubeId: "JtOfpzHsds4",
     },
     {
       name: "Raj Shankar",
       title: "HOW I MADE IT? IIM CALCUTTA",
       duration: "17 Min.",
-      imageSrc: "/api/placeholder/320/180",
+      youtubeId: "JtOfpzHsds4",
     },
     {
       name: "Raj Shankar",
       title: "HOW I MADE IT? IIM CALCUTTA",
       duration: "17 Min.",
-      imageSrc: "/api/placeholder/320/180",
+      youtubeId: "JtOfpzHsds4",
     },
     {
       name: "Raj Shankar",
       title: "HOW I MADE IT? IIM CALCUTTA",
       duration: "17 Min.",
-      imageSrc: "/api/placeholder/320/180",
+      youtubeId: "JtOfpzHsds4",
     },
   ];
 
@@ -211,11 +202,13 @@ const ReviewsPage: React.FC = () => {
         </div>
 
         {/* Video Interviews */}
-        <div className="mb-10">
+        <div className="mb-10 px-4">
+          {" "}
+          {/* Added px-4 for mobile padding */}
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
             Video Interviews
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {videoInterviews.map((video, index) => (
               <VideoInterviewCard key={index} {...video} />
             ))}
@@ -266,7 +259,7 @@ const ReviewsPage: React.FC = () => {
                     <div className="bg-green-100 rounded-lg overflow-hidden">
                       <div className="flex flex-col items-center p-3">
                         <div className="mb-1 flex items-center justify-center">
-                          <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
+                          <div className="w-12 h-12 bg-green-500  rounded-lg flex items-center justify-center">
                             <Image
                               src="/whatapp.png"
                               alt="WhatsApp"
@@ -372,9 +365,9 @@ const ReviewsPage: React.FC = () => {
                           <Image
                             src="/india.png"
                             alt="India flag"
-                            width={24}
+                            width={21}
                             height={16}
-                            className="mr-1"
+                            className="mr-2 ml-2"
                           />
                           <span className="text-gray-800 font-medium">+91</span>
                         </div>

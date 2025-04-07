@@ -97,97 +97,100 @@ const BannerPage: React.FC = () => {
   return (
     <div className="w-full">
       {/* Image Carousel Section with Form Overlay */}
-      <div className="relative w-full aspect-[16/9] h-auto min-h-[200px] sm:min-h-[300px] md:min-h-[400px] overflow-hidden bg-gray-100">
-        {/* Carousel images */}
-        <div className="relative w-full h-full">
-          {carouselImages.map((image, index) => (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-500 ${
-                index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
-              {/* Using Next.js Image component for optimized images */}
-              <div className="relative w-full h-full">
-                <Image
-                  src={image}
-                  alt={`Banner ${index + 1}`}
-                  layout="fill"
-                  objectFit="cover"
-                  priority={index === 0}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-        
-        {/* Transparent Form Overlay - positioned on the left side */}
-        <div className="absolute inset-0 flex items-center justify-end p-4 md:p-8 lg:p-12">
-          <div className="w-full max-w-md backdrop-blur-sm bg-black/30 border border-white/20 rounded-lg p-6 text-white shadow-lg">
-            <h2 className="text-xl font-bold mb-4 text-center text-white">Get Access to<br />7 Ultra Basic Sessions</h2>
-            
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-1 text-white">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Enter your name here"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-white/80 text-black bg-white rounded border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-1 text-white">Email ID</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Enter email address"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-white text-black rounded border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="mobile" className="block text-sm font-medium mb-1 text-white">Mobile Number</label>
-                <div className="flex">
-                  <div className="flex items-center bg-white text-black rounded-l border border-r-0 border-white/30 px-3">
+      <div className="relative w-full bg-gray-100">
+        {/* Main wrapper with fixed aspect ratio */}
+        <div className="relative w-full pb-[133%] sm:pb-[80%] md:pb-[60%] lg:pb-[50%]">
+          {/* Carousel images */}
+          <div className="absolute inset-0 w-full h-full">
+            {carouselImages.map((image, index) => (
+              <div
+                key={index}
+                className={`absolute inset-0 transition-opacity duration-500 ${
+                  index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
+                {/* Using Next.js Image component for optimized images */}
+                <div className="relative w-full h-full">
                   <Image
-      src="/india.png"
-      alt="India flag"
-      width={24}
-      height={16}
-      className="mr-1"
-    />
-                        <span>+91</span>
-                  </div>
-                  <input
-                    type="tel"
-                    id="mobile"
-                    name="mobile"
-                    placeholder="Mobile number"
-                    value={formData.mobile}
-                    onChange={handleInputChange}
-                    className="flex-grow px-3 py-2 bg-white text-black rounded-r border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
-                    required
+                    src={image}
+                    alt={`Banner ${index + 1}`}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    priority={index === 0}
                   />
                 </div>
               </div>
+            ))}
+          </div>
+          
+          {/* Form Container - vertically centered and better mobile alignment */}
+          <div className="absolute inset-0 flex items-center justify-center sm:justify-end px-4 py-8">
+            <div className="w-full max-w-sm sm:max-w-md backdrop-blur-sm bg-black/30 border border-white/20 rounded-lg p-4 sm:p-6 text-white shadow-lg">
+              <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-center text-white">Get Access to<br />7 Ultra Basic Sessions</h2>
               
-              <button
-                type="submit"
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded transition-colors duration-300"
-              >
-                Contact us
-              </button>
-            </form>
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium mb-1 text-white">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name here"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2  text-black bg-white rounded border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium mb-1 text-white">Email ID</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter email address"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-white text-black rounded border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="mobile" className="block text-sm font-medium mb-1 text-white">Mobile Number</label>
+                  <div className="flex">
+                    <div className="flex items-center bg-white text-black rounded-l border border-r-0 border-white/30 px-2 sm:px-3">
+                      <Image
+                        src="/india.png"
+                        alt="India flag"
+                        width={20}
+                        height={14}
+                        className="mr-1"
+                      />
+                      <span>+91</span>
+                    </div>
+                    <input
+                      type="tel"
+                      id="mobile"
+                      name="mobile"
+                      placeholder="Mobile number"
+                      value={formData.mobile}
+                      onChange={handleInputChange}
+                      className="flex-grow px-3 py-2 bg-white text-black rounded-r border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+                      required
+                    />
+                  </div>
+                </div>
+                
+                <button
+                  type="submit"
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded transition-colors duration-300"
+                >
+                  Contact us
+                </button>
+              </form>
+            </div>
           </div>
         </div>
         
@@ -196,7 +199,7 @@ const BannerPage: React.FC = () => {
           {carouselImages.map((_, index) => (
             <button
               key={index}
-              className={`w-3 h-3 rounded-full transition-colors ${
+              className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-colors ${
                 index === currentImageIndex ? "bg-white" : "bg-gray-400/50"
               }`}
               onClick={() => setCurrentImageIndex(index)}
@@ -206,13 +209,21 @@ const BannerPage: React.FC = () => {
         </div>
       </div>
       
+      {/* Why CAT Tutorials Section - Added from reference image */}
+      <div className="w-full bg-black py-4 sm:py-6 px-4 text-center">
+        <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Why CAT Tutorials</h2>
+        <p className="text-white text-sm sm:text-base mx-auto max-w-2xl">
+          We're all about helping learners everywhere with top-notch, accessible, and fun education!
+        </p>
+      </div>
+      
       {/* Cards Carousel Section - Placed below banner with proper spacing */}
-      <div className="w-full bg-black py-8 px-4 sm:px-6 lg:px-8">
+      <div className="w-full bg-black py-6 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="relative overflow-hidden">
             <div 
               className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentCardIndex * (100 / 3)}%)` }}
+              style={{ transform: `translateX(-${currentCardIndex * (100 / (window.innerWidth < 640 ? 1 : window.innerWidth < 768 ? 2 : 3))}%)` }}
             >
               {cardItems.map((card) => (
                 <div 
@@ -233,11 +244,11 @@ const BannerPage: React.FC = () => {
           </div>
           
           {/* Navigation dots */}
-          <div className="flex justify-center mt-6 space-x-2">
-            {Array.from({ length: Math.ceil(cardItems.length / 3) }).map((_, index) => (
+          <div className="flex justify-center mt-4 sm:mt-6 space-x-2">
+            {Array.from({ length: cardItems.length > 3 ? Math.ceil(cardItems.length / 3) : 1 }).map((_, index) => (
               <button
                 key={index}
-                className={`w-3 h-3 rounded-full transition-colors ${
+                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-colors ${
                   Math.floor(currentCardIndex / 3) === index ? "bg-white" : "bg-gray-600"
                 }`}
                 onClick={() => setCurrentCardIndex(index * 3)}
