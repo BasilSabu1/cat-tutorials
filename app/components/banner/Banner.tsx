@@ -332,7 +332,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             Why CAT Tutorials
           </h2>
           <p className="text-white text-sm sm:text-base mx-auto max-w-2xl">
-            We're all about helping learners everywhere with top-notch,
+            We&apos;re all about helping learners everywhere with top-notch,
             accessible, and fun education!
           </p>
         </div>
