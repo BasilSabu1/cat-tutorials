@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import Image from "next/image";
 
 interface TestimonialCardProps {
@@ -82,7 +82,7 @@ const VideoInterviewCard: React.FC<VideoInterviewProps> = ({
   name,
   title,
   duration,
-  youtubeId, // Changed from imageSrc to youtubeId
+  youtubeId,
 }) => {
   return (
     <div className="bg-black rounded-lg overflow-hidden mb-4">
@@ -181,9 +181,32 @@ const ReviewsPage: React.FC = () => {
     },
   ];
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    targetExam: "",
+    timeSlot: "",
+  });
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    // Add your form submission logic here
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white py-12 px-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-black text-white py-12">
+      <div className="max-w-6xl mx-auto px-4">
         {/* Heading */}
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
@@ -203,8 +226,6 @@ const ReviewsPage: React.FC = () => {
 
         {/* Video Interviews */}
         <div className="mb-10 px-4">
-          {" "}
-          {/* Added px-4 for mobile padding */}
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
             Video Interviews
           </h2>
@@ -214,210 +235,242 @@ const ReviewsPage: React.FC = () => {
             ))}
           </div>
         </div>
+      </div>
 
-        {/* Updated Notification Section - Now with images instead of icons */}
-        <div className="bg-gradient-to-r from-black via-gray-900 to-black min-h-screen flex items-center justify-center p-4">
-          <div className="max-w-4xl w-full rounded-2xl overflow-hidden relative backdrop-blur-sm border border-gray-800">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-blue-900/20"></div>
-            <div className="absolute inset-0 bg-black/60"></div>
+      {/* Full-width Notification Section - removed from max-width container */}
+      <div className="w-full bg-gradient-to-r from-black via-gray-900 to-black min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+        {/* Left Side Gradient Image */}
+        <div
+          className="absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-orange-700/60 to-transparent"
+          style={{ zIndex: 1 }}
+        ></div>
 
-            {/* Main content container */}
-            <div className="relative z-10 p-8">
-              {/* Heading */}
-              <h2 className="text-3xl font-bold text-white text-center mb-10">
-                Unlock Your Potentials Here
-              </h2>
+        {/* Right Side Gradient Image */}
+        <div
+          className="absolute right-0 top-0 w-1/4 h-full bg-gradient-to-l from-teal-700/60 to-transparent"
+          style={{ zIndex: 1 }}
+        ></div>
 
-              <div className="flex flex-col md:flex-row gap-8">
-                {/* Left Column */}
-                <div className="w-full md:w-5/12">
-                  <h3 className="text-lg font-medium text-green-400 mb-4">
-                    Join community
-                  </h3>
+        <div
+          className="max-w-6xl w-full rounded-2xl overflow-hidden relative backdrop-blur-sm border border-gray-800"
+          style={{ zIndex: 2 }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-blue-900/20"></div>
+          <div className="absolute inset-0 bg-black/60"></div>
 
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                    {/* Instagram Button */}
-                    <div className="bg-pink-100 rounded-lg overflow-hidden">
-                      <div className="flex flex-col items-center p-3">
-                        <div className="mb-1 flex items-center justify-center">
-                          <div className="w-12 h-12 bg-gradient-to-br from-pink-500 via-purple-500 to-orange-500 rounded-lg flex items-center justify-center">
-                            <Image
-                              src="/notificationinstagram.png"
-                              alt="Instagram"
-                              width={24}
-                              height={24}
-                            />
-                          </div>
-                        </div>
-                        <span className="text-sm font-medium text-black">
-                          Follow us
-                        </span>
-                      </div>
-                    </div>
+          {/* Main content container */}
+          <div className="relative z-10 p-8">
+            {/* Heading */}
+            <h2 className="text-3xl font-bold text-white text-center mb-10">
+              Unlock Your Potentials Here
+            </h2>
 
-                    {/* WhatsApp Button */}
-                    <div className="bg-green-100 rounded-lg overflow-hidden">
-                      <div className="flex flex-col items-center p-3">
-                        <div className="mb-1 flex items-center justify-center">
-                          <div className="w-12 h-12 bg-green-500  rounded-lg flex items-center justify-center">
-                            <Image
-                              src="/whatapp.png"
-                              alt="WhatsApp"
-                              width={24}
-                              height={24}
-                            />
-                          </div>
-                        </div>
-                        <span className="text-sm font-medium text-black">
-                          Join Now
-                        </span>
-                      </div>
-                    </div>
+            <div className="flex flex-col md:flex-row gap-8">
+              {/* Left Column */}
+              <div className="w-full md:w-5/12">
+                <h3 className="text-lg font-medium text-green-400 mb-4">
+                  Join community
+                </h3>
 
-                    {/* YouTube Button */}
-                    <div className="bg-red-100 rounded-lg overflow-hidden">
-                      <div className="flex flex-col items-center p-3">
-                        <div className="mb-1 flex items-center justify-center">
-                          <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
-                            <Image
-                              src="/youtube.png"
-                              alt="YouTube"
-                              width={24}
-                              height={24}
-                              className="brightness-0 invert"
-                            />
-                          </div>
-                        </div>
-                        <span className="text-sm font-medium text-black">
-                          Follow us
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* LinkedIn Button */}
-                    <div className="bg-blue-100 rounded-lg overflow-hidden">
-                      <div className="flex flex-col items-center p-3">
-                        <div className="mb-1 flex items-center justify-center">
-                          <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                            <Image
-                              src="/linkdin.png"
-                              alt="LinkedIn"
-                              width={24}
-                              height={24}
-                              className="brightness-0 invert"
-                            />
-                          </div>
-                        </div>
-                        <span className="text-sm font-medium text-black">
-                          Join Now
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Contact Button */}
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  {/* Instagram Button */}
                   <div className="bg-pink-100 rounded-lg overflow-hidden">
-                    <div className="flex items-center p-3 justify-center">
-                      <div className="mr-2 flex items-center justify-center">
-                        <div className="w-12 h-12 bg-purple-400 rounded-lg flex items-center justify-center">
+                    <div className="flex flex-col items-center p-3">
+                      <div className="mb-1 flex items-center justify-center">
+                        <div className="w-12 h-12 bg-gradient-to-br from-pink-500 via-purple-500 to-orange-500 rounded-lg flex items-center justify-center">
                           <Image
-                            src="/contactus.png"
-                            alt="Contact"
+                            src="/notificationinstagram.png"
+                            alt="Instagram"
                             width={24}
                             height={24}
                           />
                         </div>
                       </div>
                       <span className="text-sm font-medium text-black">
-                        Contact us
+                        Follow us
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* WhatsApp Button */}
+                  <div className="bg-green-100 rounded-lg overflow-hidden">
+                    <div className="flex flex-col items-center p-3">
+                      <div className="mb-1 flex items-center justify-center">
+                        <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
+                          <Image
+                            src="/whatapp.png"
+                            alt="WhatsApp"
+                            width={24}
+                            height={24}
+                          />
+                        </div>
+                      </div>
+                      <span className="text-sm font-medium text-black">
+                        Join Now
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* YouTube Button */}
+                  <div className="bg-red-100 rounded-lg overflow-hidden">
+                    <div className="flex flex-col items-center p-3">
+                      <div className="mb-1 flex items-center justify-center">
+                        <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
+                          <Image
+                            src="/youtube.png"
+                            alt="YouTube"
+                            width={24}
+                            height={24}
+                            className="brightness-0 invert"
+                          />
+                        </div>
+                      </div>
+                      <span className="text-sm font-medium text-black">
+                        Follow us
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* LinkedIn Button */}
+                  <div className="bg-blue-100 rounded-lg overflow-hidden">
+                    <div className="flex flex-col items-center p-3">
+                      <div className="mb-1 flex items-center justify-center">
+                        <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+                          <Image
+                            src="/linkdin.png"
+                            alt="LinkedIn"
+                            width={24}
+                            height={24}
+                            className="brightness-0 invert"
+                          />
+                        </div>
+                      </div>
+                      <span className="text-sm font-medium text-black">
+                        Join Now
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Divider for medium screens and up */}
-                <div className="hidden md:block w-px bg-gray-700 mx-4 self-stretch"></div>
-
-                {/* Right Column - Form */}
-                <div className="w-full md:w-7/12 mt-6 md:mt-0">
-                  <h3 className="text-lg font-medium text-white mb-6">
-                    Book 1-on-1 Connect with top IM & B Schools Expert
-                  </h3>
-
-                  <form className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <input
-                        type="text"
-                        placeholder="Enter your name here"
-                        className="w-full bg-white rounded-lg px-4 py-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-
-                      <input
-                        type="email"
-                        placeholder="Enter email address"
-                        className="w-full bg-white rounded-lg px-4 py-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="flex items-center bg-white rounded-lg overflow-hidden">
-                        <div className="flex items-center justify-center px-3 py-3 p-2 bg-transparent border-r border-gray-300">
-                          <Image
-                            src="/india.png"
-                            alt="India flag"
-                            width={21}
-                            height={16}
-                            className="mr-2 ml-2"
-                          />
-                          <span className="text-gray-800 font-medium">+91</span>
-                        </div>
-                        <input
-                          type="tel"
-                          placeholder="Mobile number"
-                          className="flex-1 bg-transparent px-3 py-3 text-gray-800 placeholder-gray-500 focus:outline-none"
+                {/* Contact Button */}
+                <div className="bg-pink-100 rounded-lg overflow-hidden">
+                  <div className="flex items-center p-3 justify-center">
+                    <div className="mr-2 flex items-center justify-center">
+                      <div className="w-12 h-12 bg-purple-400 rounded-lg flex items-center justify-center">
+                        <Image
+                          src="/contactus.png"
+                          alt="Contact"
+                          width={24}
+                          height={24}
                         />
                       </div>
+                    </div>
+                    <span className="text-sm font-medium text-black">
+                      Contact us
+                    </span>
+                  </div>
+                </div>
+              </div>
 
+              {/* Divider for medium screens and up */}
+              <div className="hidden md:block w-px bg-gray-700 mx-4 self-stretch"></div>
+
+              {/* Right Column - Form */}
+              <div className="w-full md:w-7/12 mt-6 md:mt-0">
+                <h3 className="text-lg font-medium text-white mb-6">
+                  Book 1-on-1 Connect with top IM & B Schools Expert
+                </h3>
+
+                <form className="space-y-4" onSubmit={handleSubmit}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Enter your name here"
+                      className="w-full bg-white rounded-lg px-4 py-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Enter email address"
+                      className="w-full bg-white rounded-lg px-4 py-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex items-center bg-white rounded-lg overflow-hidden">
+                      <div className="flex items-center justify-center px-3 py-3 p-2 bg-transparent border-r border-gray-300">
+                        <Image
+                          src="/india.png"
+                          alt="India flag"
+                          width={21}
+                          height={16}
+                          className="mr-2 ml-2"
+                        />
+                        <span className="text-gray-800 font-medium">+91</span>
+                      </div>
                       <input
-                        type="text"
-                        placeholder="Enter email address"
-                        className="w-full bg-white rounded-lg px-4 py-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder="Mobile number"
+                        className="flex-1 bg-transparent px-3 py-3 text-gray-800 placeholder-gray-500 focus:outline-none"
                       />
                     </div>
 
-                    <div className="relative">
-                      <select className="w-full bg-white rounded-lg px-4 py-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 appearance-none">
-                        <option value="">Select time slot</option>
-                        <option value="morning">Morning (9AM - 12PM)</option>
-                        <option value="afternoon">Afternoon (1PM - 5PM)</option>
-                        <option value="evening">Evening (6PM - 9PM)</option>
-                      </select>
-                      <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                        <svg
-                          className="w-4 h-4 text-gray-500"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M19 9l-7 7-7-7"
-                          ></path>
-                        </svg>
-                      </div>
-                    </div>
+                    <input
+                      type="text"
+                      name="targetExam"
+                      value={formData.targetExam}
+                      onChange={handleChange}
+                      placeholder="Enter email address"
+                      className="w-full bg-white rounded-lg px-4 py-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
 
-                    <button
-                      type="submit"
-                      className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-lg transition-colors"
+                  <div className="relative">
+                    <select
+                      className="w-full bg-white rounded-lg px-4 py-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 appearance-none"
+                      name="timeSlot"
+                      value={formData.timeSlot}
+                      onChange={handleChange}
                     >
-                      REGISTER NOW
-                    </button>
-                  </form>
-                </div>
+                      <option value="">Select time slot</option>
+                      <option value="morning">Morning (9AM - 12PM)</option>
+                      <option value="afternoon">Afternoon (1PM - 5PM)</option>
+                      <option value="evening">Evening (6PM - 9PM)</option>
+                    </select>
+                    <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                      <svg
+                        className="w-4 h-4 text-gray-500"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M19 9l-7 7-7-7"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-lg transition-colors"
+                  >
+                    REGISTER NOW
+                  </button>
+                </form>
               </div>
             </div>
           </div>
