@@ -7,6 +7,7 @@ import Comparison from "@/app/components/comparison/Comparison";
 import Faculty from "@/app/components/faculty/Faculty";
 import Benefits from "@/app/components/benefits/Benefits";
 import Footer from "@/app/components/footer/Footer";
+import FormSlot from "../slotForm/FormSlot";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <Faculty />
       <Comparison />
       <Review />
+      <FormSlot/>
       <Coursecomparison />
       <Faq />
       <Footer />

@@ -61,7 +61,7 @@ const BannerPage: React.FC = () => {
   const validateForm = () => {
     let valid = true;
     const newErrors = { name: "", email: "", mobile: "" };
-  
+
     // Name validation
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
@@ -70,7 +70,7 @@ const BannerPage: React.FC = () => {
       newErrors.name = "Name must be at least 2 characters";
       valid = false;
     }
-  
+
     // Email validation
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
@@ -79,7 +79,7 @@ const BannerPage: React.FC = () => {
       newErrors.email = "Please enter a valid email address";
       valid = false;
     }
-  
+
     // Mobile validation
     if (!formData.mobile.trim()) {
       newErrors.mobile = "Mobile number is required";
@@ -88,64 +88,60 @@ const BannerPage: React.FC = () => {
       newErrors.mobile = "Please enter a valid 10-digit mobile number";
       valid = false;
     }
-  
+
     setErrors(newErrors);
     return valid;
   };
 
-  
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
 
- const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const { name, value } = e.target;
-  
-  // Clear error when user starts typing
-  if (errors[name as keyof typeof errors]) {
-    setErrors({
-      ...errors,
-      [name]: "",
-    });
-  }
-  
-  setFormData({
-    ...formData,
-    [name]: value,
-  });
-};
-
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  
-  if (!validateForm()) {
-    return;
-  }
-
-  console.log("Form submitted:", formData);
-  try {
-    const response = await axiosInstance.post(
-      API_URLS.BANNER_FORM.POST_BANNER_FORM,
-      formData
-    );
-
-    if (response.status >= 200 && response.status < 300) {
-      console.log("Message sent successfully!", response.data);
-      toast.success("Your Form submitted successfully!");
-
-      setFormData({
-        name: "",
-        email: "",
-        mobile: "",
+    // Clear error when user starts typing
+    if (errors[name as keyof typeof errors]) {
+      setErrors({
+        ...errors,
+        [name]: "",
       });
-    } else {
-      console.error("Unexpected status code:", response.status);
+    }
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    console.log("Form submitted:", formData);
+    try {
+      const response = await axiosInstance.post(
+        API_URLS.BANNER_FORM.POST_BANNER_FORM,
+        formData
+      );
+
+      if (response.status >= 200 && response.status < 300) {
+        console.log("Message sent successfully!", response.data);
+        toast.success("Your Form submitted successfully!");
+
+        setFormData({
+          name: "",
+          email: "",
+          mobile: "",
+        });
+      } else {
+        console.error("Unexpected status code:", response.status);
+        toast.error("Failed to submit Form. Please try again.");
+      }
+    } catch (error) {
+      console.error("Failed to send message:", error);
       toast.error("Failed to submit Form. Please try again.");
     }
-  } catch (error) {
-    console.error("Failed to send message:", error);
-    toast.error("Failed to submit Form. Please try again.");
-  }
-};
-
-
+  };
 
   // Auto slide for images
   useEffect(() => {
@@ -201,7 +197,7 @@ const handleSubmit = async (e: React.FormEvent) => {
       {/* Image Carousel Section with Form Overlay */}
       <div className="relative w-full bg-gray-100">
         {/* Main wrapper with fixed aspect ratio */}
-        <div className="relative w-full pb-[133%] sm:pb-[80%] md:pb-[60%] lg:pb-[50%]">
+        <div className="relative w-full pb-[133%] sm:pb-[80%] md:pb-[60%] lg:pb-[50%] bg-black">
           {/* Carousel images */}
           <div className="absolute inset-0 w-full h-full">
             {carouselImages.map((image, index) => (
@@ -234,77 +230,92 @@ const handleSubmit = async (e: React.FormEvent) => {
               </h2>
 
               <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
-  <div>
-    <label htmlFor="name" className="block text-sm font-medium mb-1 text-white">
-      Name
-    </label>
-    <input
-      type="text"
-      id="name"
-      name="name"
-      placeholder="Enter your name here"
-      value={formData.name}
-      onChange={handleInputChange}
-      className="w-full px-3 py-2 text-black bg-white rounded border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
-      required
-    />
-    {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
-  </div>
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium mb-1 text-white"
+                  >
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name here"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 text-black bg-white rounded border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+                    required
+                  />
+                  {errors.name && (
+                    <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+                  )}
+                </div>
 
-  <div>
-    <label htmlFor="email" className="block text-sm font-medium mb-1 text-white">
-      Email ID
-    </label>
-    <input
-      type="email"
-      id="email"
-      name="email"
-      placeholder="Enter email address"
-      value={formData.email}
-      onChange={handleInputChange}
-      className="w-full px-3 py-2 bg-white text-black rounded border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
-      required
-    />
-    {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
-  </div>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium mb-1 text-white"
+                  >
+                    Email ID
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter email address"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-white text-black rounded border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+                    required
+                  />
+                  {errors.email && (
+                    <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                  )}
+                </div>
 
-  <div>
-    <label htmlFor="mobile" className="block text-sm font-medium mb-1 text-white">
-      Mobile Number
-    </label>
-    <div className="flex">
-      <div className="flex items-center bg-white text-black rounded-l border border-r-0 border-white/30 px-2 sm:px-3">
-        <Image
-          src="/india.png"
-          alt="India flag"
-          width={20}
-          height={14}
-          className="mr-1"
-        />
-        <span>+91</span>
-      </div>
-      <input
-        type="tel"
-        id="mobile"
-        name="mobile"
-        placeholder="Mobile number"
-        value={formData.mobile}
-        onChange={handleInputChange}
-        className="flex-grow px-3 py-2 bg-white text-black rounded-r border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
-        required
-        maxLength={10}
-      />
-    </div>
-    {errors.mobile && <p className="mt-1 text-sm text-red-500">{errors.mobile}</p>}
-  </div>
+                <div>
+                  <label
+                    htmlFor="mobile"
+                    className="block text-sm font-medium mb-1 text-white"
+                  >
+                    Mobile Number
+                  </label>
+                  <div className="flex">
+                    <div className="flex items-center bg-white text-black rounded-l border border-r-0 border-white/30 px-2 sm:px-3">
+                      <Image
+                        src="/india.png"
+                        alt="India flag"
+                        width={20}
+                        height={14}
+                        className="mr-1"
+                      />
+                      <span>+91</span>
+                    </div>
+                    <input
+                      type="tel"
+                      id="mobile"
+                      name="mobile"
+                      placeholder="Mobile number"
+                      value={formData.mobile}
+                      onChange={handleInputChange}
+                      className="flex-grow px-3 py-2 bg-white text-black rounded-r border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+                      required
+                      maxLength={10}
+                    />
+                  </div>
+                  {errors.mobile && (
+                    <p className="mt-1 text-sm text-red-500">{errors.mobile}</p>
+                  )}
+                </div>
 
-  <button
-    type="submit"
-    className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded transition-colors duration-300"
-  >
-    Contact us
-  </button>
-</form>
+                <button
+                  type="submit"
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded transition-colors duration-300"
+                >
+                  Contact us
+                </button>
+              </form>
             </div>
           </div>
         </div>
