@@ -1,11 +1,13 @@
 import Image from "next/image";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+// import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+
 import axiosInstance from "../apiconfig/axios";
 import { API_URLS } from "../apiconfig/api_urls";
 import { toast } from "react-toastify";
 import { format } from "date-fns";
 
-type Props = {};
+// type Props = {};
 
 interface Session {
   id: number;
@@ -29,16 +31,7 @@ const days = Array.from({ length: 7 }, (_, i) => {
   };
 });
 
-const timeSlots = [
-  "7:30 AM",
-  "8:30 AM",
-  "9:00 AM",
-  "9:30 AM",
-  "10:30 AM",
-  "11:30 AM",
-];
-
-const FormSlot = (props: Props) => {
+const FormSlot = () => {
   const [formData, setFormData] = useState({
     name: "",
     last_name: "",
@@ -49,7 +42,7 @@ const FormSlot = (props: Props) => {
     time_slot: "",
   });
 
-  const [slotes, setSlotes] = useState([]);
+  // const [slotes, setSlotes] = useState([]);
 
   const [selectedDate, setSelectedDate] = useState(days[0].fullDate);
   const [selectedTime, setSelectedTime] = useState<number | null>(null);
@@ -193,7 +186,7 @@ const FormSlot = (props: Props) => {
   };
   
 
-  console.log(slotes);
+  // console.log(slotes);
   console.log(filteredSlots);
   console.log(selectedDate);
 
